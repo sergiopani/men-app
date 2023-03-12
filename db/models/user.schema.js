@@ -25,7 +25,7 @@ const userSchema = new Schema({
 });
 
 /**
- * 1 -> nombre
+ * 1 -> nombre  
  * 2 -> schema
  * 3 -> nombre de la coleccion
  */

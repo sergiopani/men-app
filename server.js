@@ -5,8 +5,8 @@ const port = '9000';
 
 
 //importar el archivo de user.controller
-const { userManager } = require('./controllers/user.controller');
 require('./db/connection');
+const { userManager } = require('./controllers/user.controller');
 
 
 app.use(cors());

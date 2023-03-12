@@ -1,4 +1,5 @@
 //Importar el usuario
+// const { default: mongoose } = require('mongoose');
 const User = require('../db/models/user.schema');
 
 
@@ -33,24 +34,22 @@ userManager.registerUser = async (req, res) => {
         console.log(JSON.stringify(user));
 
         //3 -> Guardar los datos con el metodo save
-        const savedUser = await user.save();
-
-        // 4 -> No se ha creado correctamente
-        if (!savedUser) {
-            return res.status(400).json({
-                "message": "No se ha podido registrar el usuario"
+        user.save().then((user) => {
+            return res.status(200).json({
+                "message": "Usuario registrado correctamente!"
             });
-        }
-
-        //5 -> Se ha creado correctamente
-        return res.status(200).json({
-            "message": "Usuario registrado correctamente!"
+        }).catch((err) => {
+            return res.status(400).json({
+                "message": "Error al registrar el usuario",
+                "error": err.message
+            });
+        }).finally(() => {
+            mongoose.connection.close();
         });
 
 
     } catch (err) {
-
-        res.status(500).json({ error: 'Error interno del servidor' });
+        res.status(400).json({ error: err.message });
 
     }
 };

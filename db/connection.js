@@ -12,7 +12,7 @@ const {
 
 
 //url de conexion
-const MONGODB_URL = `mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@localhost:${MONGODB_LOCAL_PORT}/${MONGODB_DATABASE}`;
+const MONGODB_URL = `mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@172.18.0.2:${MONGODB_LOCAL_PORT}/${MONGODB_DATABASE}`;
 
 console.log(MONGODB_URL);
 
@@ -20,7 +20,9 @@ console.log(MONGODB_URL);
 const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    authSource: 'admin'
 };
+
 
 //Conectar a la base de datos
 mongoose.connect(MONGODB_URL, options);

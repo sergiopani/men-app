@@ -1,4 +1,6 @@
-# Practica Mongo DB con Express
+# Práctica Mongo DB con Express
+
+# Repositorio de la práctica (https://github.com/sergiopani/men-app.git)
 
 ## Instalación
 
@@ -44,7 +46,7 @@ const {
 
 
 //url de conexion
-const MONGODB_URL = `mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@localhost:${MONGODB_LOCAL_PORT}/${MONGODB_DATABASE}`;
+const MONGODB_URL = `mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@172.18.0.2:${MONGODB_LOCAL_PORT}/${MONGODB_DATABASE}`;
 ```
 
 
@@ -57,6 +59,43 @@ Como vemos la conexión es correcta:
 
 Ahora es momento de probar con postman y mongo-compass el post de un nuevo usuario
 ![Postman](./img/usuario.png)
+
+Podemos observar que si el nombre esta duplicado nos devolvemos un error al usuario:
+Ya que en el schema he definido que el correo sea una id única.
+
+```bash
+const userSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        trim: true,
+        unique: true,
+    },
+    password: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    date: {
+        type: String,
+        default: Date.now,
+    },
+});
+```
+
+El resultado en postman seria tal que así:
+
+![Postman](./img/postmanError.png)
+
+
+En mongo-compass podemos ver que no se ha creado el usuario con email duplicado:
+
+![Mongo](./img/mongoProgram.png)
 
 
 
