@@ -43,8 +43,6 @@ userManager.registerUser = async (req, res) => {
                 "message": "Error al registrar el usuario",
                 "error": err.message
             });
-        }).finally(() => {
-            mongoose.connection.close();
         });
 
 
