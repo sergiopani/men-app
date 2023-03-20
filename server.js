@@ -23,7 +23,7 @@ app.get('/users', userManager.users);
  * Post 
  */
 app.post('/users/register', userManager.registerUser);
-
+app.post('/users/login', userManager.loginUser);
 
 /**
  * Delete

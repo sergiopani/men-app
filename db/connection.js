@@ -12,7 +12,8 @@ const {
 
 
 //url de conexion
-const MONGODB_URL = `mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@172.18.0.2:${MONGODB_LOCAL_PORT}/${MONGODB_DATABASE}`;
+const MONGODB_URL = `mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@10.0.20.2:27017/${MONGODB_DATABASE}`;
+console.log(MONGODB_URL);
 
 console.log(MONGODB_URL);
 
