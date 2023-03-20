@@ -1,10 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const validarNombre = (name) => {
-    if (name.length < 3 && name.length > 20) {
-        return false;
-    }
-    return true;
+    return name.length < 3 && name.length > 20;
 };
 
 const validarEmail = (email) => {
@@ -21,13 +18,13 @@ const userSchema = new Schema({
     },
     email: {
         type: String,
-        required: [true, 'El email es obligatorio'],//La controlo en la funcion
+        required: [true, 'El email es obligatorio'],
         trim: true,
         unique: true,
     },
     password: {
         type: String,
-        required: true,//La controlo en la funcion
+        required: [true, 'El password es obligatorio'],//La controlo en la funcion
         trim: true,
     },
     date: {
@@ -36,6 +33,10 @@ const userSchema = new Schema({
         default: Date.now,
     },
 });
+
+//validacion del email y el nombre
+userSchema.path('email').validate(validarEmail, 'El email no cumple un formato valido');
+userSchema.path('name').validate(validarNombre, 'El nombre debe contener entre 3 y 20 caracteres');
 
 /**
  * 1 -> nombre  

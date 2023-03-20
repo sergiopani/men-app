@@ -97,6 +97,71 @@ En mongo-compass podemos ver que no se ha creado el usuario con email duplicado:
 
 ![Mongo](./img/mongoProgram.png)
 
+- Validacion
+Para la validacion del username y el email he usando el validator del schema:
+
+```bash
+
+const userSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        trim: true,
+        unique: true,
+        validate: {
+            validator: function (v) {
+                return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
+            },
+            message: (props) => `${props.value} is not a valid email!`,
+        },
+    },
+    password: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    date: {
+        type: String,
+        default: Date.now,
+    },
+});
+```
+
+En el codigo, he puesto las validaciones al final!
+
+- Encriptacion
+Para la encriptacion del password he usado el paquete bcryptjs
+
+```bash
+await bcrypt.hash(body.password, 10).then((hash) => {
+            user.password = hash;
+        });
+
+```
+
+- Desencriptacion:
+Para la desencriptacion del password he usado el paquete bcryptjs
+
+```bash
+// 2 -> Comprobar que la contraseña es correcta con bcrypt
+        if (!await bcrypt.compare(password, userBD[0].password)) {
+            throw new Error('La contraseña no es correcta');
+        }
+
+```
+
+Aqui las capturas demostrando que la validacion funciona correctamente!
+
+![Postman](./img/validacionNombre.png)
+
+![Mongo](./img/segundaValidacion.png)
+
+
 
 
 

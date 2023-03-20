@@ -37,7 +37,7 @@ userManager.loginUser = async (req, res) => {
         const password = req.body.password;
         const userBD = await User.find({ email: email });
         if ((userBD.length === 0)) {
-            throw new Error('El usuario no existe');
+            throw new Error('El usuario con esas credenciales no existe!');
         }
 
         // 2 -> Comprobar que la contraseña es correcta con bcrypt
@@ -49,6 +49,7 @@ userManager.loginUser = async (req, res) => {
             "message": "Login correcto"
         });
 
+        //PRUEBAS CON JWT NO SE EJECUTA
         /**
          * Si estamos aqui es que se ha podido verficar
          * que existe el usuario asi que vamos ha devolverle
@@ -106,7 +107,7 @@ userManager.registerUser = async (req, res) => {
         });
 
         //3 -> Guardar los datos con el metodo save
-        user.save();
+        await user.save();
 
         return res.status(200).json({
             "message": "Usuario registrado correctamente!"
